@@ -45,7 +45,7 @@ export const LudoBoardCanvas: React.FC<LudoBoardCanvasProps> = ({
 
   const cellSize = boardSize / 15;
 
-  // Render loop using requestAnimationFrame for GPU accelerated rendering
+  // Render board function
   const renderBoard = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -319,15 +319,29 @@ export const LudoBoardCanvas: React.FC<LudoBoardCanvasProps> = ({
     });
   }, [players, activeColor, movableTokenIds, boardSize, cellSize, hintTokenId, theme]);
 
+  // High-efficiency event-driven & selective pulse animation loop
   useEffect(() => {
     let animId: number;
-    const loop = () => {
-      renderBoard();
+    let running = true;
+
+    const hasActiveGlow = movableTokenIds.length > 0 || hintTokenId !== null;
+
+    if (hasActiveGlow) {
+      const loop = () => {
+        if (!running) return;
+        renderBoard();
+        animId = requestAnimationFrame(loop);
+      };
       animId = requestAnimationFrame(loop);
+    } else {
+      renderBoard();
+    }
+
+    return () => {
+      running = false;
+      if (animId) cancelAnimationFrame(animId);
     };
-    animId = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(animId);
-  }, [renderBoard]);
+  }, [renderBoard, movableTokenIds.length, hintTokenId]);
 
   // Canvas Click Handler (Direct token click selection)
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
