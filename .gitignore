@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Production Build Output
+dist/
+build/
+out/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.pem
+*.key
+*.p12
+*.jks
+*.keystore
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.icloud
+
+# Logs & Temp Files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.vitest/
+
+# IDE & Editor Settings
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvsopt
+*.njsproj
+*.swp
+*.swo
+
+# Android Native Build Outputs & Local Configs
+android/app/build/
+android/.gradle/
+android/build/
+android/captures/
+android/local.properties
+android/.idea/
+*.apk
+*.aab

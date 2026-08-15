@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  body.theme-dark {
+    background-color: #0b0f19;
+    color: #f8fafc;
+  }
+
+  body.theme-light {
+    background-color: #f1f5f9;
+    color: #0f172a;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+/* GPU Hardware Acceleration Utilities */
+.gpu-layer {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+/* Glassmorphism Card Styles - Dark Mode */
+.theme-dark .glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  color: #f8fafc;
+}
+
+/* Glassmorphism Card Styles - Light Mode */
+.theme-light .glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+}
+
+.theme-dark .glass-panel-golden {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(180, 83, 9, 0.25));
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+}
+
+.theme-light .glass-panel-golden {
+  background: linear-gradient(135deg, rgba(254, 243, 199, 0.9), rgba(253, 230, 138, 0.8));
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+  color: #78350f;
+}
+
+/* 3D Dice Styling */
+.dice-container {
+  width: 70px;
+  height: 70px;
+  perspective: 400px;
+}
+
+.dice-cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-origin: 50% 50%;
+}
+
+.dice-face {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #e2e8f0);
+  border: 2px solid #cbd5e1;
+  border-radius: 14px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.dice-dot {
+  width: 12px;
+  height: 12px;
+  background: #0f172a;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+}
+
+.dice-face-1 { transform: translateZ(35px); }
+.dice-face-2 { transform: rotateY(180deg) translateZ(35px); }
+.dice-face-3 { transform: rotateY(-90deg) translateZ(35px); }
+.dice-face-4 { transform: rotateY(90deg) translateZ(35px); }
+.dice-face-5 { transform: rotateX(90deg) translateZ(35px); }
+.dice-face-6 { transform: rotateX(-90deg) translateZ(35px); }
+
+/* Rotations for 3D Dice Faces */
+.show-1 { transform: rotateX(0deg) rotateY(0deg); }
+.show-2 { transform: rotateX(0deg) rotateY(180deg); }
+.show-3 { transform: rotateX(0deg) rotateY(90deg); }
+.show-4 { transform: rotateX(0deg) rotateY(-90deg); }
+.show-5 { transform: rotateX(-90deg) rotateY(0deg); }
+.show-6 { transform: rotateX(90deg) rotateY(0deg); }
+
+.dice-rolling {
+  animation: roll3D 0.7s ease-out infinite;
+}
+
+@keyframes roll3D {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  25% { transform: rotateX(180deg) rotateY(90deg) rotateZ(45deg); }
+  50% { transform: rotateX(360deg) rotateY(180deg) rotateZ(90deg); }
+  75% { transform: rotateX(540deg) rotateY(270deg) rotateZ(135deg); }
+  100% { transform: rotateX(720deg) rotateY(360deg) rotateZ(180deg); }
+}
+
+/* Pulse animation for movable token highlight */
+@keyframes tokenPulse {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8), 0 0 15px rgba(255, 255, 255, 0.8); }
+  70% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0), 0 0 25px rgba(255, 255, 255, 1); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0), 0 0 15px rgba(255, 255, 255, 0.8); }
+}
+
+.movable-token-pulse {
+  animation: tokenPulse 1.2s infinite;
+  cursor: pointer;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.7);
+}
