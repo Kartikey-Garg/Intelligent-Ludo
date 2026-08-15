@@ -1,0 +1,25 @@
+name: Sync Wiki to GitHub Wiki
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'wiki/**'
+  workflow_dispatch:
+
+jobs:
+  sync-wiki:
+    name: Sync Wiki Repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+
+      - name: Upload to GitHub Wiki
+        uses: Andrew-Chen-Wang/github-wiki-action@v4
+        with:
+          strategy: clone
+          wiki_folder: wiki
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
